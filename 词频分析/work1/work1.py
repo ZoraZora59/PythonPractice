@@ -1,11 +1,12 @@
 # work1.py
+import re
 def readfile(fname):#读文件并初始化输出文件
     try:
         f=open(fname, "r")
         ls=f.read()
         f.close()
-        f=open("output.txt","w")
-        f.close()
+        # f=open("output.txt","w")
+        # f.close()
         return ls
     except all:
         print("readfile error")
@@ -13,11 +14,13 @@ def readfile(fname):#读文件并初始化输出文件
 
 def txtformat(ls):# 格式化
     ls=ls.lower()
-    ls=ls.replace("—"," ")
-    ls=ls.replace(".\n","")
-    ls=ls.replace(".","")
-    ls=ls.replace(",","")
+    ls = re.sub(r'[^A-Za-z]', ' ', ls)
     ls=ls.split(" ")
+    while True:
+        try:
+            ls.remove('')
+        except ValueError:
+            break
     return ls
 
 def gettxt(fname):# 封装:读文件与格式化
@@ -45,6 +48,9 @@ def countsame(s,cmp):# 查两字符串相同词的数量
 def countdiff(nall,nsame):# 查不同单词数，nall总数-nsame相同单词数=不同单词数
     return nall-nsame
 
+def countall(txt):# 查总词数
+    return len(txt)
+
 if __name__ == '__main__':
     fname="input_1.txt"
     txt1=gettxt(fname)
@@ -52,6 +58,12 @@ if __name__ == '__main__':
     txt2=gettxt(fname)
     agg1=getagg(txt1)
     agg2=getagg(txt2)
-    ct=50000
-    print("same word =", countsame(agg1,agg2))
+    same=countsame(agg1,agg2)
+    a1all=countall(agg1)
+    a2all=countall(agg2)
+    print("same word =", same)
+    print("text1 NR word =",countdiff(a1all,same))
+    print("text2 NR word =",countdiff(a2all,same))
     # print(txt1)
+    # print(txt2)
+    
