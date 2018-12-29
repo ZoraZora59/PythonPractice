@@ -8,7 +8,7 @@ def readfile(fname):#读文件并初始化输出文件
         f=open("output.txt","w")
         f.close()
         return ls
-    except all:
+    except FileNotFoundError:
         print("readfile error")
         exit()
 
@@ -114,3 +114,4 @@ if __name__ == '__main__':
     dic=countdic(txt1,txt2)
     sortdic=sortdict(dic)
     typeout(sortdic,dic)
+    exit()
