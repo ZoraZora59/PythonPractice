@@ -58,22 +58,20 @@ def writetop(all,t1,t2):# 写文件表头
     f.close()
 
 def countsame(s,cmp):# 查两字符串相同词的数量
-    count=0;
+    count=0
     for item in s:
         if(item in cmp):
             count+=1
     return count
 
-def countdiff(nall,nsame):# 查不同单词数，nall总数-nsame相同单词数=不同单词数
+def countdiff(nall,nsame):# 封装：查不同单词数
     return nall-nsame
 
-def countall(txt):# 查总词数
+def countall(txt):# 封装：查总词数
     return len(txt)
 
 def typeout(sd,d):# 输出高频词表
     f=open("output.txt","a")
-    
-    
     for i in range(10):
         print(sd[i],d.get(sd[i]))
         stream=['\n',str(sd[i]),' ',str(d.get(sd[i]))]
@@ -106,18 +104,13 @@ if __name__ == '__main__':
     same=countsame(agg1,agg2)
     a1=countall(agg1)
     a2=countall(agg2)
-
     print("same word =", same)
     a1=countdiff(a1,same)
     print("non-repeating word in text1 =",a1)
     a2=countdiff(a2,same)
     print("non-repeating word in text2 =",a2)
-    
     writetop(same,a1,a2)
     # 高频统计排序
     dic=countdic(txt1,txt2)
     sortdic=sortdict(dic)
     typeout(sortdic,dic)
-    
-    # print(txt1)
-    # print(txt2)
